@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:instagram/utils/colors.dart';
+import 'package:instagram/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../models/users.dart';
+import '../providers/user_provider.dart';
 
 class PostCard extends StatelessWidget {
   final snap;
@@ -8,6 +12,7 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   final User? user = Provider.of<UserProvider>(context).getUser;
     return Column(
       children: [
         Container(
@@ -78,9 +83,15 @@ class PostCard extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite),
+            LikeAnimation(
+              isAnimatiing: snap['likes'].contains(user!.uid),
+              duration: const Duration(milliseconds: 200),
+              onEnd: () {  },
+              smallLike: true,
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.favorite),
+              ),
             ),
             IconButton(
               onPressed: () {},
