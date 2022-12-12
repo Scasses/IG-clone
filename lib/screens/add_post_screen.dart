@@ -71,6 +71,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         setState(() {
           _isLoading = false;
         });
+        clearImage();
       } else {
         showSnackBar(res, context);
         setState(() {
@@ -80,6 +81,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
     } catch (error) {
       showSnackBar(error.toString(), context);
     }
+  }
+
+  void clearImage() {
+    setState(() {
+      _file = null;
+    });
   }
 
   @override
@@ -104,7 +111,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
               leading: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  clearImage();
+                },
                 icon: const Icon(Icons.arrow_back),
               ),
               title: const Text('Post to'),
@@ -130,6 +139,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     : const Padding(
                         padding: EdgeInsets.only(top: 0),
                       ),
+                const Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
