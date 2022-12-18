@@ -36,23 +36,36 @@ class FirestoreMethods {
       res = 'success';
     } catch (error) {
       res = error.toString();
-    } return res;
+    }
+    return res;
   }
-
-  Future<void> likePost(String postId, String uid, List likes) async{
-    try{
-      if(likes.contains(uid)){
+  //update likes
+  Future<void> likePost(String postId, String uid, List likes) async {
+    try {
+      if (likes.contains(uid)) {
         await _firestore.collection('posts').doc(postId).update({
-          'likes' : FieldValue.arrayRemove([uid]),
+          'likes': FieldValue.arrayRemove([uid]),
         });
       } else {
         await _firestore.collection('posts').doc(postId).update({
-          'likes' : FieldValue.arrayUnion([uid]),
+          'likes': FieldValue.arrayUnion([uid]),
         });
       }
+    } catch (e) {
+      print(
+        e.toString(),
+      );
+    }
+  }
 
-    } catch(e) {
-      print(e.toString(),);
+  //deleting post
+  Future<void> deletePost(String postId) async {
+    try {
+      await _firestore.collection('posts').doc(postId).delete();
+    } catch (e) {
+      print(
+        e.toString(),
+      );
     }
   }
 }
