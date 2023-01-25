@@ -93,8 +93,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Flexible(
-                child: Container(),
                 flex: 1,
+                child: Container(),
               ),
               //svg image
               SvgPicture.asset(
